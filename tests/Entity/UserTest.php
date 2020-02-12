@@ -37,4 +37,23 @@ class UserTest extends TestCase
 
         $this->assertSame($this->user->getNickName(), "nickname");
     }
+
+    public function testShouldSetAnEmail()
+    {
+        $this->user->setEmail("email");
+
+        $this->assertSame($this->user->getEmail(), "email");
+    }
+
+    public function testShouldSetAPassword()
+    {
+        $this->user->setPassword("password");
+
+        $this->assertSame($this->user->getPassword(), "password");
+    }
+
+    public function testIdShouldBeNull()
+    {
+        $this->assertNull($this->user->getId());
+    }
 }
