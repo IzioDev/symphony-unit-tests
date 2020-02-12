@@ -25,4 +25,13 @@ class HomeControllerTest extends WebTestCase
 
         $this->assertSelectorExists('a[href="/login"]');
     }
+
+    public function testHomeShouldContainsALinkToRegister()
+    {
+        $client = self::createClient();
+
+        $client->request("GET", "/");
+
+        $this->assertSelectorExists('a[href="/register"]');
+    }
 }

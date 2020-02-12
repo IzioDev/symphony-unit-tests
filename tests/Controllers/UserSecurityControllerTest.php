@@ -4,16 +4,24 @@
 namespace App\Tests\Controllers;
 
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\FixturesWebTestCase;
 
-class UserSecurityControllerTest extends WebTestCase
+class UserSecurityControllerTest extends FixturesWebTestCase
 {
+    protected $client;
+
+    public function setUp(): void
+    {
+        $this->client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'password',
+        ]);
+    }
+
     public function testLogout()
     {
-        $client = self::createClient();
-        $client->followRedirects();
-
-        $client->request("GET", "/logout");
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->client->followRedirects();
+        $this->client->request("GET", "/logout");
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }

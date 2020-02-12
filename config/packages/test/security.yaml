@@ -1,0 +1,9 @@
+security:
+  encoders:
+    App\Entity\User:
+      algorithm: 'bcrypt'
+      cost: 13
+  firewalls:
+    # replace 'main' by the name of your own firewall
+    main:
+      http_basic: ~
