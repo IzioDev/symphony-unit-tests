@@ -48,9 +48,15 @@ class User
      */
     private $ownedPaths;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Path", mappedBy="passengers")
+     */
+    private $participatedPaths;
+
     public function __construct()
     {
         $this->ownedPaths = new ArrayCollection();
+        $this->participatedPaths = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +150,34 @@ class User
             if ($ownedPath->getDriver() === $this) {
                 $ownedPath->setDriver(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Path[]
+     */
+    public function getParticipatedPaths(): Collection
+    {
+        return $this->participatedPaths;
+    }
+
+    public function addParticipatedPath(Path $participatedPath): self
+    {
+        if (!$this->participatedPaths->contains($participatedPath)) {
+            $this->participatedPaths[] = $participatedPath;
+            $participatedPath->addPassenger($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipatedPath(Path $participatedPath): self
+    {
+        if ($this->participatedPaths->contains($participatedPath)) {
+            $this->participatedPaths->removeElement($participatedPath);
+            $participatedPath->removePassenger($this);
         }
 
         return $this;
