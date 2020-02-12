@@ -26,6 +26,16 @@ class Path
      */
     private $startTime;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="startPaths")
+     */
+    private $startLocation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="endPaths")
+     */
+    private $endLocation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +61,30 @@ class Path
     public function setStartTime(\DateTimeInterface $startTime): self
     {
         $this->startTime = $startTime;
+
+        return $this;
+    }
+
+    public function getStartLocation(): ?Location
+    {
+        return $this->startLocation;
+    }
+
+    public function setStartLocation(?Location $startLocation): self
+    {
+        $this->startLocation = $startLocation;
+
+        return $this;
+    }
+
+    public function getEndLocation(): ?Location
+    {
+        return $this->endLocation;
+    }
+
+    public function setEndLocation(?Location $endLocation): self
+    {
+        $this->endLocation = $endLocation;
 
         return $this;
     }
