@@ -1,35 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6cf8715e-7b9b-4c11-943c-8ceb0929fee5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Entity/Location.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/Location.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Entity/Path.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/Path.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Entity/User.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/User.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Entity/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Entity/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Kernel.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Kernel.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Migrations/Version20200212091555.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/Version20200212091555.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Migrations/Version20200212101043.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/Version20200212101043.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Migrations/Version20200212104504.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/Version20200212104504.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Migrations/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Migrations/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Repository/LocationRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/LocationRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Repository/PathRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/PathRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Repository/UserRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/UserRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Repository/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/Repository/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coverage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Entity/PathTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Entity/PathTest.php" afterDir="false" />
-    </list>
+    <list default="true" id="6cf8715e-7b9b-4c11-943c-8ceb0929fee5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -147,6 +126,7 @@
       <option name="presentableId" value="Default" />
       <updated>1581499874938</updated>
       <workItem from="1581499876966" duration="3731000" />
+      <workItem from="1581509262207" duration="394000" />
     </task>
     <servers />
   </component>
@@ -158,7 +138,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

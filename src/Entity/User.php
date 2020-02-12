@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Path", mappedBy="driver")
+     */
+    private $ownedPaths;
+
+    public function __construct()
+    {
+        $this->ownedPaths = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +114,37 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Path[]
+     */
+    public function getOwnedPaths(): Collection
+    {
+        return $this->ownedPaths;
+    }
+
+    public function addOwnedPath(Path $ownedPath): self
+    {
+        if (!$this->ownedPaths->contains($ownedPath)) {
+            $this->ownedPaths[] = $ownedPath;
+            $ownedPath->setDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnedPath(Path $ownedPath): self
+    {
+        if ($this->ownedPaths->contains($ownedPath)) {
+            $this->ownedPaths->removeElement($ownedPath);
+            // set the owning side to null (unless already changed)
+            if ($ownedPath->getDriver() === $this) {
+                $ownedPath->setDriver(null);
+            }
+        }
 
         return $this;
     }

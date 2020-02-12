@@ -36,6 +36,11 @@ class Path
      */
     private $endLocation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ownedPaths")
+     */
+    private $driver;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Path
     public function setEndLocation(?Location $endLocation): self
     {
         $this->endLocation = $endLocation;
+
+        return $this;
+    }
+
+    public function getDriver(): ?User
+    {
+        return $this->driver;
+    }
+
+    public function setDriver(?User $driver): self
+    {
+        $this->driver = $driver;
 
         return $this;
     }
