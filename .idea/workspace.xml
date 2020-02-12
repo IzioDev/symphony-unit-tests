@@ -2,14 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6cf8715e-7b9b-4c11-943c-8ceb0929fee5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tp2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tp2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Controllers/HomeControllerTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Controllers/UserSecurityControllerTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Entity/Location.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/Location.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Entity/Path.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/Path.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Entity/User.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/User.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Entity/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Entity/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Entity/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Kernel.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Kernel.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Migrations/Version20200212091555.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/Version20200212091555.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Migrations/Version20200212101043.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/Version20200212101043.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Migrations/Version20200212104504.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/Version20200212104504.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Migrations/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Migrations/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Migrations/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Repository/LocationRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/LocationRepository.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Repository/PathRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/PathRepository.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Repository/UserRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/UserRepository.php.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Repository/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/Repository/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/Repository/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Entity/LocationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Entity/LocationTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +133,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.UserTest">
+  <component name="RunManager" selected="PHPUnit.TestUserSecurityController">
+    <configuration name="TestUserSecurityController" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="App\Tests\Controllers\TestUserSecurityController" file="$PROJECT_DIR$/tests/Controllers/UserSecurityControllerTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
     <configuration name="UserTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="UserTest" file="$PROJECT_DIR$/tests/Entity/UserTest.php" scope="Class" />
       <method v="2" />
@@ -130,9 +148,11 @@
     <list>
       <item itemvalue="PHP Script.Unnamed" />
       <item itemvalue="PHPUnit.UserTest" />
+      <item itemvalue="PHPUnit.TestUserSecurityController" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="PHPUnit.TestUserSecurityController" />
         <item itemvalue="PHPUnit.UserTest" />
       </list>
     </recent_temporary>
@@ -148,7 +168,7 @@
       <option name="presentableId" value="Default" />
       <updated>1581499874938</updated>
       <workItem from="1581499876966" duration="3731000" />
-      <workItem from="1581509262207" duration="2549000" />
+      <workItem from="1581509262207" duration="4340000" />
     </task>
     <servers />
   </component>
