@@ -8,6 +8,7 @@
 /var/
 /vendor/
 /coverage/
+/.idea/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
