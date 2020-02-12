@@ -20,4 +20,24 @@ class PathTest extends TestCase
     {
         $this->assertInstanceOf(Path::class, $this->path);
     }
+
+    public function testShouldSetSeats()
+    {
+        $this->path->setSeats(4);
+
+        $this->assertSame($this->path->getSeats(), 4);
+    }
+
+    public function testShouldSetStartTime()
+    {
+        $dateTime = new \DateTime();
+        $this->path->setStartTime($dateTime);
+
+        $this->assertSame($this->path->getStartTime(), $dateTime);
+    }
+
+    public function testIdShouldBeNull()
+    {
+        $this->assertNull($this->path->getId());
+    }
 }
