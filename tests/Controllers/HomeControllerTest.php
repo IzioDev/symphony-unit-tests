@@ -15,6 +15,14 @@ class HomeControllerTest extends WebTestCase
         $client->request("GET", "/");
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains("p", "Bonjour les copains");
+    }
+
+    public function testHomeShouldContainsALinkToLogin()
+    {
+        $client = self::createClient();
+
+        $client->request("GET", "/");
+
+        $this->assertSelectorExists('a[href="/login"]');
     }
 }
