@@ -16,6 +16,12 @@
 * `./bin/phpunit --coverage-html coverage`
 
 ### TODO:
+* Home:
+    * Recherche trajet
+* Si auth:
+    * Mes trajets
+        * conducteur
+        * passagers
 * Liste des trajets:
     * Départ, arrivée, date/heure.
     * Si auth: reserver
