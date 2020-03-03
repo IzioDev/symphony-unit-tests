@@ -14,3 +14,15 @@
 * `./bin/phpunit`
 ### With Coverage:
 * `./bin/phpunit --coverage-html coverage`
+
+### TODO:
+* Liste des trajets:
+    * Départ, arrivée, date/heure.
+    * Si auth: reserver
+* Nouveau trajet:
+    * Départ
+    * Arrivé
+    * Date/Heure
+* Nouveau lieu:
+    * Nom
+    * Coordonnées
