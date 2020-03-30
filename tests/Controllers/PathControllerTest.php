@@ -52,8 +52,6 @@ class PathControllerTest extends FixturesWebTestCase
         $this->em->persist($location);
         $this->em->flush();
 
-        var_dump($location->getId());
-
         $user = $this->createUserClient();
         $user->request("GET", "/path/create");
 
@@ -67,5 +65,22 @@ class PathControllerTest extends FixturesWebTestCase
 
         // If there is a success message, we're good
         $this->assertSelectorExists(".flash-success");
+    }
+
+    public function testPathCreationShouldContainsALinkToHomeIfThereIsAtLeastOneLocation()
+    {
+        // Create a location first;
+        $location = new Location();
+        $location->setName("Location 1");
+        $location->setLat(410.1);
+        $location->setLon(350.4);
+
+        $this->em->persist($location);
+        $this->em->flush();
+
+        $user = $this->createUserClient();
+        $user->request("GET", "/path/create");
+
+        $this->assertSelectorExists("a[href='/']");
     }
 }
