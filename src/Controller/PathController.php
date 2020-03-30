@@ -44,10 +44,7 @@ class PathController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Trajet correctement enregistré.');
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('danger', "Erreur lors de l'enregistrement.");
         }
-
 
         return $this->render('path/index.html.twig', [
             'createPathForm' => $form->createView(),

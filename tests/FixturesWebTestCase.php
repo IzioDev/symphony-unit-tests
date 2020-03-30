@@ -2,6 +2,7 @@
 
 
 namespace App\Tests;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Test\MailerAssertionsTrait;
@@ -16,10 +17,7 @@ class FixturesWebTestCase extends KernelTestCase
     use WebTestAssertionsTrait;
     use MailerAssertionsTrait;
 
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $em = null;
+    protected EntityManager $em;
 
     protected $application = null;
 
@@ -90,6 +88,7 @@ class FixturesWebTestCase extends KernelTestCase
         /** @var EntityManagerInterface $em */
         $this->em = self::$container->get('doctrine')->getManager();
 
+        self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:update --force');
         self::runCommand('doctrine:fixtures:load');

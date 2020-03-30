@@ -30,6 +30,14 @@ class HomeControllerTest extends FixturesWebTestCase
         $this->assertSelectorExists('a[href="/register"]');
     }
 
+    public function testHomeShouldContainsALinkToPathSearch()
+    {
+        $client = $this->createClient();
+        $client->request("GET", "/");
+
+        $this->assertSelectorExists('a[href="/path/search"]');
+    }
+
     public function testHomeShouldNotContainALinkToLoginIfLoggedIn()
     {
         $user = $this->createUserClient();
@@ -62,10 +70,10 @@ class HomeControllerTest extends FixturesWebTestCase
         $this->assertSelectorExists('a[href="/path/create"]');
     }
 
-    public function testHomeShouldContainALinkToPathSearch()
+    public function testHomeShouldContainALinkToPathSearchIfLoggedIn()
     {
-        $client = $this->createClient();
-        $client->request("GET", "/");
+        $user = $this->createUserClient();
+        $user->request("GET", "/");
 
         $this->assertSelectorExists('a[href="/path/search"]');
     }
