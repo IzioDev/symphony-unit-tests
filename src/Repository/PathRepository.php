@@ -12,39 +12,38 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Path[]    findAll()
  * @method Path[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PathRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class PathRepository extends ServiceEntityRepository {
+
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Path::class);
     }
 
-    // /**
-    //  * @return Path[] Returns an array of Path objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+    public function findForSearch(Path $path) {
+        $query = $this->createQueryBuilder('p')
+                ->where('1 = 1')
         ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Path
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!is_null($path->getSeats()) && $path->getSeats() > 0){
+            $query->andWere('p.seats >= :seats');
+            $query->setParameter(':seats', $path->getSeats());
+        }
+        
+        if (!is_null($path->getStartTime()) && $path->getStartTime() != "") {
+            $query->andWhere('p.startTime >= :startTime');
+            $query->setParameter(':startTime', $path->getStartTime());
+        }
+        
+        if (!is_null($path->getStartLocation()) && $path->getStartLocation() != "") {
+            $query->andWhere('p.startLocation = :startLocation');
+            $query->setParameter(':startLocation', $path->getStartLocation());
+        }
+        
+        if (!is_null($path->getEndLocation()) && $path->getEndLocation() != "") {
+            $query->andWhere('p.endLocation = :endLocation');
+            $query->setParameter(':endLocation', $path->getEndLocation());
+        }
+        
+        return $query->getQuery()->getResult();
     }
-    */
+
 }

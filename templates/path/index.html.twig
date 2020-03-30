@@ -4,9 +4,10 @@
 
 {% block body %}
 
-    {% include 'layout/flash-msg.html.twig' %}
-
     <div class="container">
+
+        {% include 'layout/flash-msg.html.twig' %}
+
         <div class="alert alert-info" role="alert">
             Vous ne trouvez pas votre lieu dans la liste ? <a class="btn btn-success text-white" href="{{ path("new_location") }}">Créez-en un maintenant</a>
         </div>

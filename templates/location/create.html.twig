@@ -3,11 +3,11 @@
 {% block title %}Hello LocationController!{% endblock %}
 
 {% block body %}
-
-{% include 'layout/flash-msg.html.twig' %}
-    
+  
 <div class="container">
 
+    {% include 'layout/flash-msg.html.twig' %}
+    
     {% if firstLocation %}
         <div class="alert alert-info" role="alert">
             Il n'y a pas encore de lieu de créer, ajoutez votre pierre à l'édifice et ajoutez-en un !
