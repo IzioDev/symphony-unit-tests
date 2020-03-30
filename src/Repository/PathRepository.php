@@ -24,7 +24,7 @@ class PathRepository extends ServiceEntityRepository {
         ;
 
         if (!is_null($path->getSeats()) && $path->getSeats() > 0){
-            $query->andWere('p.seats >= :seats');
+            $query->andWhere('p.seats >= :seats');
             $query->setParameter(':seats', $path->getSeats());
         }
         
