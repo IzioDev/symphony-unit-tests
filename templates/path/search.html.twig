@@ -25,7 +25,17 @@
             {% for path in paths %}
                 <div clas="path-item">
                     <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
-                    Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }}
+                    Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }} &nbsp;
+                    
+                    {% if app.user %}
+                        <a href="{{ path('book_path', {"id": path.id}) }}" class="btn btn-sm btn-warning">
+                            Réserver maintenant
+                        </a>
+                    {% endif %}
+                    
+                    <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-pimary">
+                        Détails
+                    </a>
                 </div>
             {% else %}
                 <div class="flash-danger">

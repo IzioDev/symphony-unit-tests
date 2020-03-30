@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un trajet !{% endblock %}
+
+{% block body %}
+
+    <div class='container'>
+
+        {% include 'layout/flash-msg.html.twig' %}
+
+        <div class='show-path-container'>
+            <h2>Détail du trajet {{ path.startLocation.name }} vers {{ path.endLocation.name }}</h2>
+
+            Nombre de place: {{ path.seats }} <br/>
+            Date: {{ path.startTime | date('d-m-Y') }}<br/>
+            Heure: {{ path.startTime | date('H:i:s') }}<br/>
+
+            Conducteur: {{ path.driver ? path.driver.firstName : '' }}<br/>
+
+            {% if path.passengers | length > 0 %}
+                Passager(s):
+                <ul>
+                    {% for user in path.passengers %} 
+                        <li>{{ user.firstName }}</li>
+                        {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -11,11 +11,11 @@
     {% set routeInLocation = ['new_location'] %}
     {% set routeInPath = ['new_path', 'search_path'] %}
     {% set routeInSecurity = ['app_login', 'app_register'] %}
-    
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ routeName in routeInHome ? 'active' : '' }} ">
-                <a class="nav-link" href="#">Accueil</a>
+                <a class="nav-link" href="{{ path('home') }}">Accueil</a>
             </li>
             <li class="nav-item {{ routeName in routeInPath ? 'active' : '' }}">
                 <a class="nav-link" href="#">Trajet</a>
@@ -23,9 +23,12 @@
             <li class="nav-item {{ routeName in routeInLocation ? 'active' : '' }}">
                 <a class="nav-link" href="#">Lieu</a>
             </li>
-            <li class="nav-item {{ routeName in routeInSecurity ? 'active' : '' }}">
-                <a class="nav-link" href="#">Mon compte</a>
-            </li>
+
+            {% if app.user %}
+                <li class="nav-item {{ routeName in routeInSecurity ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('account') }}">Mon compte</a>
+                </li>
+            {% endif %}
             {#<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        {% include 'layout/flash-msg.html.twig' %}
+
+        {% if user.ownedPaths | length > 0 %}
+            <div class="account-owned-paths-container">
+                <h2>Tajets conducteur</h2>
+
+                {% for path in app.user.ownedPaths %}
+                    <div class="account-owned-paths-item">
+                        <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
+                        Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }} &nbsp;
+                        <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-pimary">
+                            Détails
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+
+        {% if user.participatedPaths | length > 0 %}
+            <div class="account-participated-paths-container">
+                <h2>Trajets passager</h2>
+                
+                {% for path in user.participatedPaths %}
+                    <div class="account-partipated-path-item">
+                        <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
+                        Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }} &nbsp;
+                        <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-pimary">
+                            Détails
+                        </a>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        {% endif %}
+        
+    </div>
+
+{% endblock %}

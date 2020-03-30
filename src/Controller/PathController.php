@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Path;
+use App\Entity\User;
 use App\Form\PathType;
 use App\Form\PathSearchType;
 use App\Repository\LocationRepository;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PathController extends AbstractController
 {
@@ -77,6 +79,39 @@ class PathController extends AbstractController
         return $this->render('path/search.html.twig', [
             'form' => $form->createView(),
             'paths' => $paths
+        ]);
+    }
+    
+    /**
+     * @Route("/path/{id}/book", name="book_path")
+     * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @param Path path
+     * @return RedirectResponse|Response
+     */
+    public function book(Request $request, Path $path) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $user = $em->getRepository(User::class)->find($this->getUser()->getId());
+        
+        $path->addPassenger($user);
+        
+        $em->persist($path);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('account'));
+    }
+    
+    /**
+     * @Route("/path/{id}/show", name="show_path")
+     * @param Request $request
+     * @param Path $path
+     * @return RedirectResponse|Response
+     */
+    public function show (Request $request, Path $path) {
+        
+        return $this->render('path/show.html.twig', [
+            'path' => $path
         ]);
     }
 }

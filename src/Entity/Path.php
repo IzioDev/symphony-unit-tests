@@ -45,7 +45,7 @@ class Path
     private $driver;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="participatedPaths")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="participatedPaths", cascade={"all"})
      */
     private $passengers;
 

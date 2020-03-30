@@ -43,6 +43,8 @@ class PathRepository extends ServiceEntityRepository {
             $query->setParameter(':endLocation', $path->getEndLocation());
         }
         
+        $query->orderBy('p.startTime', 'ASC');
+        
         return $query->getQuery()->getResult();
     }
 
