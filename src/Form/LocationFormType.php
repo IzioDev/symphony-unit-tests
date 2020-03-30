@@ -4,9 +4,7 @@ namespace App\Form;
 
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,7 +28,6 @@ class LocationFormType extends AbstractType
                     "class" => "btn btn-success"
                 ]
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

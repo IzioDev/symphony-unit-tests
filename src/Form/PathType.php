@@ -3,8 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Path;
-use Doctrine\DBAL\Types\DateTimeType;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,12 +18,12 @@ class PathType extends AbstractType
             ->add('seats', null, [
                 "label" => "Nombre de place"
             ])
-            ->add('startTime', \Symfony\Component\Form\Extension\Core\Type\DateTimeType::class, [
+            ->add('startTime', DateTimeType::class, [
                 "label" => "Heure et date de départ",
                 "widget" => 'single_text',
                 "format" => 'yyyy-MM-dd H:mm',
                 "html5" => false,
-                "data" => new \DateTime()
+                "data" => new DateTime()
             ])
             ->add('startLocation', null, [
                 "label" => "Départ"
@@ -36,7 +37,6 @@ class PathType extends AbstractType
                     "class" => "btn btn-success"
                 ]
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

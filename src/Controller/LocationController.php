@@ -23,8 +23,7 @@ class LocationController extends AbstractController
     public function create(Request $request, LocationRepository $locationRepository)
     {
         $firstLocation = false;
-        if (!$locationRepository->findAll())
-        {
+        if (!$locationRepository->findAll()) {
             $firstLocation = true;
         }
 
@@ -36,7 +35,7 @@ class LocationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($location);
             $entityManager->flush();
-            
+
             $this->addFlash('success', 'Location correctement enregistré.');
         } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('danger', 'Erreur lors de l\"enregistrement.');

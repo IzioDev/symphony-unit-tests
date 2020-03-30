@@ -198,7 +198,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->nickName;
+        return (string)$this->nickName;
     }
 
     /**
@@ -239,6 +239,6 @@ class User implements UserInterface
 
     public function __toString()
     {
-       return $this->getFirstName();
+        return $this->getFirstName();
     }
 }
