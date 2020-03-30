@@ -36,6 +36,10 @@ class LocationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($location);
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Location correctement enregistré.');
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('danger', 'Erreur lors de l\"enregistrement.');
         }
 
         return $this->render('location/create.html.twig', [

@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="{{ asset('image/isio.png') }}" style="width: 60px;"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    {% set routeName = app.request.attributes.get('_route') %}
+    {% set routeInHome = ['home'] %}
+    {% set routeInLocation = ['new_location'] %}
+    {% set routeInPath = ['new_path'] %}
+    {% set routeInSecurity = ['app_login', 'app_register'] %}
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ routeName in routeInHome ? 'active' : '' }} ">
+                <a class="nav-link" href="#">Accueil</a>
+            </li>
+            <li class="nav-item {{ routeName in routeInPath ? 'active' : '' }}">
+                <a class="nav-link" href="#">Trajet</a>
+            </li>
+            <li class="nav-item {{ routeName in routeInLocation ? 'active' : '' }}">
+                <a class="nav-link" href="#">Lieu</a>
+            </li>
+            <li class="nav-item {{ routeName in routeInSecurity ? 'active' : '' }}">
+                <a class="nav-link" href="#">Mon compte</a>
+            </li>
+            {#<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>#}
+
+    </div>
+</nav>
