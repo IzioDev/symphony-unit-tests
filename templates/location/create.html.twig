@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LocationController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    {% if firstLocation %}
+        <div class="alert alert-info" role="alert">
+            Il n'y a pas encore de lieu de créer, ajoutez votre pierre à l'édifice et ajoutez-en un !
+        </div>
+    {% endif %}
+    <a class="btn btn-secondary" href="{{ path("home") }}">Accueil</a>
+
+    {{ form(createLocationForm) }}
+</div>
+{% endblock %}

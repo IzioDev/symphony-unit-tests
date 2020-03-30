@@ -32,3 +32,8 @@
 * Nouveau lieu:
     * Nom
     * Coordonnées
+    
+### TODO TEST
+* page de nouveau trajet pas accessible si pas connecté
+* page de nouveau lieu pas accessible si pas connecté
+* quand on soumet un trajet, on est bien driver automatiquement
