@@ -34,6 +34,10 @@ class PathController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $user = $this->getUser();
+            $path->setDriver($user);
+
             $entityManager->persist($path);
             $entityManager->flush();
 
