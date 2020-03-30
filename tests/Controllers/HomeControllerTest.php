@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Controllers;
-
 
 use App\Tests\FixturesWebTestCase;
 

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Path;
+use App\Entity\User;
 use App\Form\PathType;
 use App\Repository\LocationRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,9 +21,10 @@ class PathController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param LocationRepository $locationRepository
+     * @param UserRepository $userRepository
      * @return RedirectResponse|Response
      */
-    public function create(Request $request, LocationRepository $locationRepository)
+    public function create(Request $request, LocationRepository $locationRepository, UserRepository $userRepository)
     {
 
         // If there are no Location yet, let's redirect to the location creation.
@@ -36,10 +39,14 @@ class PathController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            // Types saying it's typeof UserInterface but in the
+            // user authenticator, it's the real User Entity type.
+            $userInterface = $this->getUser();
+            $path->setDriver($userInterface);
             $entityManager->persist($path);
             $entityManager->flush();
         }
-
 
         return $this->render('path/index.html.twig', [
             'createPathForm' => $form->createView(),
