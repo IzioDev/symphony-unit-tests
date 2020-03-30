@@ -2,66 +2,74 @@
 
 
 namespace App\Tests;
-
-
-use App\DataFixtures\UserFixtures;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\MailerAssertionsTrait;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-class FixturesWebTestCase extends WebTestCase
+class FixturesWebTestCase extends KernelTestCase
 {
+    use WebTestAssertionsTrait;
+    use MailerAssertionsTrait;
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */
-    protected $em;
+    protected $em = null;
 
-    protected static $application;
+    protected $application = null;
 
-    protected static $admin = null;
-    protected static $client = null;
-    protected static $user = null;
+    private AbstractBrowser $client;
 
     /**
      * {@inheritDoc}
      */
     public function setUp()
     {
+
+        $this->client = $this->createClient();
+
+
         $this->resetDatabase();
-
-        if (null === self::$client) {
-            self::$client = static::createClient();
-        }
-
-        if (null === self::$admin) {
-            self::$admin = clone self::$client;
-        }
-
-        if (null === self::$user) {
-            self::$user = clone self::$client;
-        }
-
-        parent::setUp();
     }
 
-    protected static function runCommand($command)
+    public function createAdminClient(): AbstractBrowser {
+        $client = $this->client;
+        $client->setServerParameters( [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW' => 'password',
+        ]);
+        return $client;
+    }
+
+    public function createUserClient(): AbstractBrowser {
+        $client = $this->client;
+        $client->setServerParameters( [
+            'PHP_AUTH_USER' => 'user',
+            'PHP_AUTH_PW' => 'password',
+        ]);
+        return $client;
+    }
+
+    protected function runCommand($command)
     {
         $command = sprintf('%s --quiet', $command);
 
-        return self::getApplication()->run(new StringInput($command));
+        return $this->getApplication()->run(new StringInput($command));
     }
 
-    protected static function getApplication()
+    protected function getApplication()
     {
-        if (null === self::$application) {
-            $client = static::createClient();
-
-            self::$application = new Application($client->getKernel());
-            self::$application->setAutoExit(false);
+        if (null === $this->application) {
+            $this->application = new Application($this->client->getKernel());
+            $this->application->setAutoExit(false);
         }
 
-        return self::$application;
+        return $this->application;
     }
 
     /**
@@ -70,6 +78,7 @@ class FixturesWebTestCase extends WebTestCase
     protected function tearDown() : void
     {
         parent::tearDown();
+        self::getClient(null);
         $this->em->close();
     }
 
@@ -83,6 +92,28 @@ class FixturesWebTestCase extends WebTestCase
 
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:update --force');
-        self::runCommand('doctrine:fixtures:load --purge-with-truncate');
+        self::runCommand('doctrine:fixtures:load');
+    }
+
+    protected function createClient(array $options = [], array $server = [])
+    {
+        if (static::$booted) {
+            return $this->client;
+        }
+
+        $kernel = static::bootKernel($options);
+
+        try {
+            $client = $kernel->getContainer()->get('test.client');
+        } catch (ServiceNotFoundException $e) {
+            if (class_exists(KernelBrowser::class)) {
+                throw new \LogicException('You cannot create the client used in functional tests if the "framework.test" config is not set to true.');
+            }
+            throw new \LogicException('You cannot create the client used in functional tests if the BrowserKit component is not available. Try running "composer require symfony/browser-kit"');
+        }
+
+        $client->setServerParameters($server);
+
+        return self::getClient($client);
     }
 }
