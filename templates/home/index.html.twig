@@ -4,9 +4,9 @@
 
 {% block body %}
     
-    {% include 'layout/flash-msg.html.twig' %}
-    
     <div class="container">
+        {% include 'layout/flash-msg.html.twig' %}
+        
         <h1>Covoiturage</h1>
 
         {% if app.user %}

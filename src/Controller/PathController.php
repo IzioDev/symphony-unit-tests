@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Path;
 use App\Form\PathType;
+use App\Form\PathSearchType;
 use App\Repository\LocationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -53,11 +54,29 @@ class PathController extends AbstractController
 
     /**
      * @Route("/path/search", name="search_path")
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function search()
+    public function search(Request $request)
     {
-        $res = new Response("", 200);
-        return $res;
-    }
+        $em = $this->getDoctrine()->getManager();
 
+        $path = new Path();
+        $path->setStartTime(new \DateTime());
+        $form = $this->createForm(PathSearchType::class, $path);
+        $form->handleRequest($request);
+
+        $paths = [];
+
+        if ($form->isSubmitted()) {
+            $paths = $em->getRepository(Path::class)->findForSearch($path);
+        } else {
+            $paths = $em->getRepository(Path::class)->findAll();
+        }
+
+        return $this->render('path/search.html.twig', [
+            'form' => $form->createView(),
+            'paths' => $paths
+        ]);
+    }
 }

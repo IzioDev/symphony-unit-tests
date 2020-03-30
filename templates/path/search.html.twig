@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rechercher un trajet !{% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+
+        {% include 'layout/flash-msg.html.twig' %}
+
+        <div class="form-container">
+            <h1> Recherche de trajets </h1>
+            {{ form_start(form) }}
+            {{ form_row(form.seats) }}
+            {{ form_row(form.startTime) }}
+            {{ form_row(form.startLocation) }}
+            {{ form_row(form.endLocation) }}
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+            <br/>
+        </div>
+
+        <div class="paths-container">
+            {% for path in paths %}
+                <div clas="path-item">
+                    <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
+                    Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }}
+                </div>
+            {% else %}
+                <div class="flash-danger">
+                    Aucun trajet ne correspond à votre recherche.
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
