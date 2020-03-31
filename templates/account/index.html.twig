@@ -4,6 +4,7 @@
 
 {% block body %}
 
+    {% set dateNow = date() %}
     <div class="container">
         {% include 'layout/flash-msg.html.twig' %}
 
@@ -11,15 +12,61 @@
             <div class="account-owned-paths-container">
                 <h2>Tajets conducteur</h2>
 
-                {% for path in app.user.ownedPaths %}
-                    <div class="account-owned-paths-item">
-                        <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
-                        Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }} &nbsp;
-                        <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-pimary">
-                            Détails
-                        </a>
-                    </div>
-                {% endfor %}
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">
+                                Ville départ
+                            </th>
+                            <th scope="col">
+                                Ville arrivée
+                            </th>
+                            <th scope="col">
+                                Date et heure départ
+                            </th>
+                            <th scope="col">
+                                Place(s) disponible(s)
+                            </th>
+                            <th>
+                                Place(s) restante(s)
+                            </th>
+                            <th scope="col">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for path in app.user.ownedPaths %}
+                            <tr class="account-owned-paths-item">
+                                <td>
+                                    {{ path.startLocation.name }}
+                                </td>
+                                <td>
+                                    {{ path.endLocation.name }}
+                                </td>
+                                <td>
+                                    {{ path.startTime | date('d/m/Y H:i:s') }}
+                                </td>
+                                <td>
+                                    {{ path.seats }}
+                                </td>
+                                <td>
+                                    {{ path.leftSeats }}
+                                </td>
+                                <td>
+                                    {% if dateNow < date(path.startTime) %}
+                                        <a href="{{ path('cancel_book_path', {'id': path.id}) }}" class="btn btn-sm btn-danger">
+                                            Annuler
+                                        </a>
+                                    {% endif %}
+                                    &nbsp;
+                                    <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-primary">
+                                        Détails
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                </table>
 
             </div>
         {% endif %}
@@ -27,20 +74,65 @@
         {% if user.participatedPaths | length > 0 %}
             <div class="account-participated-paths-container">
                 <h2>Trajets passager</h2>
-                
-                {% for path in user.participatedPaths %}
-                    <div class="account-participated-path-item">
-                        <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
-                        Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }} &nbsp;
-                        <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-primary">
-                            Détails
-                        </a>
-                    </div>
-                {% endfor %}
-                
+
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">
+                                Ville départ
+                            </th>
+                            <th scope="col">
+                                Ville arrivée
+                            </th>
+                            <th scope="col">
+                                Date et heure départ
+                            </th>
+                            <th scope="col">
+                                Place(s) disponible(s)
+                            </th>
+                            <th>
+                                Place(s) restante(s)
+                            </th>
+                            <th scope="col">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for path in app.user.participatedPaths %}
+                            <tr class="account-owned-paths-item">
+                                <td>
+                                    {{ path.startLocation.name }}
+                                </td>
+                                <td>
+                                    {{ path.endLocation.name }}
+                                </td>
+                                <td>
+                                    {{ path.startTime | date('d/m/Y H:i:s') }}
+                                </td>
+                                <td>
+                                    {{ path.seats }}
+                                </td>
+                                <td>
+                                    {{ path.leftSeats }}
+                                </td>
+                                <td>
+                                    {% if dateNow < date(path.startTime) %}
+                                        <a href="{{ path('cancel_book_path', {'id': path.id}) }}" class="btn btn-sm btn-danger">
+                                            Annuler
+                                        </a>
+                                    {% endif %}
+                                    &nbsp;
+                                    <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-primary">
+                                        Détails
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                </table>
             </div>
         {% endif %}
-        
+
     </div>
 
 {% endblock %}

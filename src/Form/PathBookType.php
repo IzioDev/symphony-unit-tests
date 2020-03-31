@@ -16,7 +16,8 @@ class PathBookType extends AbstractType
             ->add('numberPassenger', IntegerType::class, [
                 "attr" => ["min" => 1],
                 "data" => 1,
-                "empty_data" => 1
+                "empty_data" => 1,
+                "label" => "Nombre de passagers"
             ])
                 ->add('submit', SubmitType::class, [
                     "label" => "Réserver",

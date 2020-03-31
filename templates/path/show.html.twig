@@ -26,6 +26,13 @@
                         {% endfor %}
                 </ul>
             {% endif %}
+            
+            {% if app.user %}
+                {{ form_start(form) }}
+                    {{ form_row(form.numberPassenger) }}
+                    {{ form_widget(form.submit) }}
+                {{ form_end(form) }}
+            {% endif %}
         </div>
 
     </div>

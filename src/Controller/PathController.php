@@ -74,7 +74,7 @@ class PathController extends AbstractController {
         }
 
         $formBook = $this->createForm(PathBookType::class, null, []);
-        
+
         $paths = $em->getRepository(Path::class)->findForSearch($path);
 
         return $this->render('path/search.html.twig', [
@@ -115,9 +115,38 @@ class PathController extends AbstractController {
      */
     public function show(Request $request, Path $path) {
 
-        return $this->render('path/show.html.twig', [
-                    'path' => $path
+        $form = $this->createForm(PathBookType::class, null, [
+            "action" => $this->generateUrl('book_path', ["id" => $path->getId()])
         ]);
+
+        return $this->render('path/show.html.twig', [
+                    'path' => $path,
+                    'form' => $form->createView()
+        ]);
+    }
+    
+    /**
+     * @Route("/path/{id}/cancel", name="cancel_book_path")
+     * @IsGranted("ROLE_USER")
+     * @param Path $path
+     * @return RedirectResponse|Response
+     */
+    public function cancelBook(Path $path) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $user = $this->getUser();
+        
+        if ($user->getId() == $path->getDriver()->getId()) {
+            $em->remove($path);
+        } else {
+            $path->removePassenger($user);
+            $path->setLeftSeats($path->getLeftSeats() + 1);
+            $em->persist($path);
+        }
+        
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('account'));
     }
 
 }
