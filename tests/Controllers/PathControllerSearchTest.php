@@ -71,6 +71,28 @@ class PathControllerSearchTest extends FixturesWebTestCase
         $this->assertSelectorExists("a[href='/path/1/show']");
     }
 
+    public function testShouldBeAbleToBookWhenConnected()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $user = $this->createUserClient();
+        $user->request("GET", "/path/search");
+
+        $this->assertSelectorNotExists(".flash-danger");
+        $this->assertSelectorExists("a[href='/path/1/book']");
+    }
+
+    public function testShouldNotSeePathWhenDriverIsTheSearcher()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $admin = $this->createAdminClient();
+        $admin->request("GET", "/path/search");
+
+        $this->assertSelectorExists(".flash-danger");
+        $this->assertSelectorNotExists("a[href='/path/1/book']");
+    }
+
     public function testShouldNotDisplayIfSelectedDateIsGreaterThanPathDate()
     {
         $this->setUpLyonAnnecyPath();

@@ -46,6 +46,14 @@ class HomeControllerTest extends FixturesWebTestCase
         $this->assertSelectorNotExists('a[href="/login"]');
     }
 
+    public function testHomeShouldContainALinkToProfileIfLoggedIn()
+    {
+        $user = $this->createUserClient();
+
+        $user->request("GET", "/");
+        $this->assertSelectorExists('a[href="/account"]');
+    }
+
     public function testHomeShouldNotContainALinkToRegisterIfLoggedIn()
     {
         $user = $this->createUserClient();
