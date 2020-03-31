@@ -37,6 +37,7 @@ class AccountControllerTest extends FixturesWebTestCase
         $path1->setDriver($driver);
         $path1->setSeats(4);
         $path1->setStartTime($nowDate);
+        $path1->setLeftSeats(4);
 
         $em->persist($locationStart);
         $em->persist($locationEnd);

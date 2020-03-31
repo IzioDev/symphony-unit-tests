@@ -37,6 +37,7 @@ class PathControllerBookTest extends FixturesWebTestCase
         $path1->setDriver($driver);
         $path1->setSeats(4);
         $path1->setStartTime($nowDate);
+        $path1->setLeftSeats(4);
 
         $em->persist($locationStart);
         $em->persist($locationEnd);
@@ -59,7 +60,9 @@ class PathControllerBookTest extends FixturesWebTestCase
         $this->setUpLyonAnnecyPath();
 
         $user = $this->createUserClient();
-        $user->request('GET', "/path/1/book");
+        $user->request('GET', "/path/search");
+
+        $user->submitForm("path_book[submit]", ["path_book[numberPassenger]" => 1]);
 
         $this->assertResponseRedirects('/account');
     }
