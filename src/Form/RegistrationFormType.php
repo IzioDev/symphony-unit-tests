@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -17,11 +18,20 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nickName')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
+            ->add('nickName', null, [
+                "label" => "Pseudo"
+            ])
+            ->add('firstName', null, [
+                "label" => "Prénom"
+            ])
+            ->add('lastName', null, [
+                "label" => "Nom"
+            ])
+            ->add('email', null, [
+                "label" => "Email"
+            ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => "Accepter les CGU",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -32,6 +42,7 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -39,12 +50,18 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
-            ]);
+            ])
+            ->add('submit', SubmitType::class, [
+                "label" => "M'enregistrer",
+                "attr" => [
+                    "class" => "btn btn-success"
+                ]
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver)

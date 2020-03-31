@@ -22,10 +22,10 @@ class LocationControllerTest extends FixturesWebTestCase
 
         $button = $user->getCrawler()->selectButton('location_form[submit]');
         $form = $button->form([
-            'location_form[name]' => "Grenoble",
-            'location_form[lat]' => 101.5,
-            'location_form[lon]' => 101.5,
-        ], 'POST');
+        'location_form[name]' => "Grenoble",
+        'location_form[lat]' => 101.5,
+        'location_form[lon]' => 101.5,
+    ], 'POST');
         // Submit it
         $user->submit($form, [], []);
 

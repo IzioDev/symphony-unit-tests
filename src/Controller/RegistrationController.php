@@ -36,6 +36,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // set the role user of freshly created user.
+            $user->setRoles(["ROLE_USER"]);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
