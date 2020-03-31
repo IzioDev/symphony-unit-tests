@@ -22,26 +22,60 @@
         </div>
 
         <div class="paths-container">
-            {% for path in paths %}
-                <div clas="path-item">
-                    <b>{{ path.startLocation.name }} - {{ path.endLocation.name }}</b> &nbsp;
-                    Départ: {{ path.startTime | date('d/m/Y H:i:s') }} -  Place(s) disponible(s): {{ path.seats }} &nbsp;
-                    
-                    {% if app.user %}
-                        <a href="{{ path('book_path', {"id": path.id}) }}" class="btn btn-sm btn-warning">
-                            Réserver maintenant
-                        </a>
-                    {% endif %}
-                    
-                    <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-pimary">
-                        Détails
-                    </a>
-                </div>
-            {% else %}
-                <div class="flash-danger">
-                    Aucun trajet ne correspond à votre recherche.
-                </div>
-            {% endfor %}
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">
+                            Ville départ
+                        </th>
+                        <th scope="col">
+                            Ville arrivée
+                        </th>
+                        <th scope="col">
+                            Date et heure départ
+                        </th>
+                        <th scope="col">
+                            Place(s) disponible(s)
+                        </th>
+                        <th scope="col">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for path in paths %}
+                        <tr clas="path-item">
+                            <td>
+                                {{ path.startLocation.name }}
+                            </td>
+                            <td>
+                                {{ path.endLocation.name }}
+                            </td>
+                            <td>
+                                {{ path.startTime | date('d/m/Y H:i:s') }}
+                            </td>
+                            <td>
+                                {{ path.seats }}
+                            </td>
+                            <td>
+                                {% if app.user %}
+                                    <a href="{{ path('book_path', {"id": path.id}) }}" class="btn btn-sm btn-warning">
+                                        Réserver maintenant
+                                    </a>
+                                {% endif %}
+                                &nbsp;
+                                <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-primary">
+                                    Détails
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                    <tr class="flash-danger">
+                        <td colspan="5">Aucun trajet ne correspond à votre recherche.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
