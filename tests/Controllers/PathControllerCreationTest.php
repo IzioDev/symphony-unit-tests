@@ -92,6 +92,31 @@ class PathControllerCreationTest extends FixturesWebTestCase
         $this->assertSelectorNotExists(".flash-success");
     }
 
+    public function testPathCreationUserShouldNotBeAbleToCreateAPathWhenSeatIsGreaterThanHeight()
+    {
+        // Create a location first;
+        $location = new Location();
+        $location->setName("Location 2");
+        $location->setLat(410.1);
+        $location->setLon(350.4);
+
+        $this->em->persist($location);
+        $this->em->flush();
+
+        $user = $this->createUserClient();
+        $user->request("GET", "/path/create");
+
+        $nowDate = new \DateTime();
+
+        // Fill form
+        $button = $user->getCrawler()->selectButton('path[submit]');
+        $form = $button->form(['path[seats]' => 9, 'path[startTime]' => $nowDate->format("Y-m-d H:i"), 'path[startLocation]' => $location->getId(), 'path[endLocation]' => $location->getId()], 'POST');
+        // Submit it
+        $user->submit($form, [], []);
+
+        $this->assertSelectorNotExists(".flash-success");
+    }
+
     public function testPathCreationShouldContainsALinkToHomeIfThereIsAtLeastOneLocation()
     {
         // Create a location first;
