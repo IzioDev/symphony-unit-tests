@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Path;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @method Path|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +15,45 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class PathRepository extends ServiceEntityRepository {
 
-    public function __construct(ManagerRegistry $registry) {
+    private $security;
+
+    public function __construct(ManagerRegistry $registry, Security $security) {
         parent::__construct($registry, Path::class);
+        $this->security = $security;
     }
 
     public function findForSearch(Path $path) {
+        $user = $this->security->getUser();
+
         $query = $this->createQueryBuilder('p')
                 ->where('1 = 1')
         ;
 
-        if (!is_null($path->getSeats()) && $path->getSeats() > 0){
-            $query->andWhere('p.seats >= :seats');
-            $query->setParameter(':seats', $path->getSeats());
+        if (!is_null($user)) {
+            $query->andWhere('p.driver != :user');
+            $query->setParameter(':user', $user);
         }
+
+        $query->andWhere('p.seats >= :seats');
+        $query->setParameter(':seats', $path->getSeats());
+        $query->andWhere('p.seats > 0');
         
-        if (!is_null($path->getStartTime()) && $path->getStartTime() != "") {
-            $query->andWhere('p.startTime >= :startTime');
-            $query->setParameter(':startTime', $path->getStartTime());
-        }
-        
+        $query->andWhere('p.startTime >= :startTime');
+        $query->setParameter(':startTime', $path->getStartTime());
+
+
         if (!is_null($path->getStartLocation()) && $path->getStartLocation() != "") {
             $query->andWhere('p.startLocation = :startLocation');
             $query->setParameter(':startLocation', $path->getStartLocation());
         }
-        
+
         if (!is_null($path->getEndLocation()) && $path->getEndLocation() != "") {
             $query->andWhere('p.endLocation = :endLocation');
             $query->setParameter(':endLocation', $path->getEndLocation());
         }
-        
+
         $query->orderBy('p.startTime', 'ASC');
-        
+
         return $query->getQuery()->getResult();
     }
 
