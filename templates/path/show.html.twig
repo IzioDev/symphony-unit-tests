@@ -27,7 +27,7 @@
                 </ul>
             {% endif %}
             
-            {% if app.user and app.user.id is not same as (path.driver.id) %}
+            {% if app.user and app.user.id is not same as (path.driver.id) and date() < date(path.startTime) and app.user not in path.passengers %}
                 {{ form_start(form) }}
                     {{ form_row(form.numberPassenger) }}
                     {{ form_widget(form.submit) }}
