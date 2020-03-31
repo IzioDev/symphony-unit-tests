@@ -18,15 +18,16 @@ class PathSearchType extends AbstractType {
         $builder
                 ->add('seats', null, [
                     "label" => "Nombre de place",
-                    "required" => false
+                    "required" => false,
+                    "attr" => ["min" => 1]
                 ])
                 ->add('startTime', \Symfony\Component\Form\Extension\Core\Type\DateTimeType::class, [
                     "label" => "Heure et date de départ",
                     "widget" => 'single_text',
                     "format" => 'yyyy-MM-dd H:mm',
                     "html5" => false,
-                    "data" => new \DateTime(),
-                    "required" => false
+                    "required" => false,
+                    "empty_data" => date_format(new \DateTime(), "Y-m-d h:i")
                 ])
                 ->add('startLocation', EntityType::class, [
                     "label" => "Départ",

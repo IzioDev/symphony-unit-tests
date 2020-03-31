@@ -16,8 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class PathController extends AbstractController
-{
+class PathController extends AbstractController {
 
     /**
      * @Route("/path/create", name="new_path")
@@ -26,8 +25,7 @@ class PathController extends AbstractController
      * @param LocationRepository $locationRepository
      * @return RedirectResponse|Response
      */
-    public function create(Request $request, LocationRepository $locationRepository)
-    {
+    public function create(Request $request, LocationRepository $locationRepository) {
 
         // If there are no Location yet, let's redirect to the location creation.
         if (!$locationRepository->findAll()) {
@@ -51,7 +49,7 @@ class PathController extends AbstractController
         }
 
         return $this->render('path/index.html.twig', [
-            'createPathForm' => $form->createView(),
+                    'createPathForm' => $form->createView(),
         ]);
     }
 
@@ -61,29 +59,23 @@ class PathController extends AbstractController
      * @return RedirectResponse|Response
      * @throws Exception
      */
-    public function search(Request $request)
-    {
+    public function search(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $path = new Path();
         $path->setStartTime(new \DateTime());
+        $path->setSeats(1);
         $form = $this->createForm(PathSearchType::class, $path);
         $form->handleRequest($request);
 
-        $paths = [];
-
-        if ($form->isSubmitted()) {
-            $paths = $em->getRepository(Path::class)->findForSearch($path);
-        } else {
-            $paths = $em->getRepository(Path::class)->findAll();
-        }
+        $paths = $em->getRepository(Path::class)->findForSearch($path);
 
         return $this->render('path/search.html.twig', [
-            'form' => $form->createView(),
-            'paths' => $paths
+                    'form' => $form->createView(),
+                    'paths' => $paths
         ]);
     }
-    
+
     /**
      * @Route("/path/{id}/book", name="book_path")
      * @IsGranted("ROLE_USER")
@@ -93,27 +85,28 @@ class PathController extends AbstractController
      */
     public function book(Request $request, Path $path) {
         $em = $this->getDoctrine()->getManager();
-        
+
         $user = $em->getRepository(User::class)->find($this->getUser()->getId());
-        
+
         $path->addPassenger($user);
-        
+
         $em->persist($path);
         $em->flush();
-        
+
         return $this->redirect($this->generateUrl('account'));
     }
-    
+
     /**
      * @Route("/path/{id}/show", name="show_path")
      * @param Request $request
      * @param Path $path
      * @return RedirectResponse|Response
      */
-    public function show (Request $request, Path $path) {
-        
+    public function show(Request $request, Path $path) {
+
         return $this->render('path/show.html.twig', [
-            'path' => $path
+                    'path' => $path
         ]);
     }
+
 }
