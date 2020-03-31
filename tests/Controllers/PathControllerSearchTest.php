@@ -37,6 +37,7 @@ class PathControllerSearchTest extends FixturesWebTestCase
         $path1->setDriver($driver);
         $path1->setSeats(4);
         $path1->setStartTime($nowDate);
+        $path1->setLeftSeats(4);
 
         $em->persist($locationStart);
         $em->persist($locationEnd);
@@ -79,7 +80,7 @@ class PathControllerSearchTest extends FixturesWebTestCase
         $user->request("GET", "/path/search");
 
         $this->assertSelectorNotExists(".flash-danger");
-        $this->assertSelectorExists("a[href='/path/1/book']");
+        $this->assertSelectorExists("button[name='path_book[submit]']");
     }
 
     public function testShouldNotSeePathWhenDriverIsTheSearcher()
@@ -121,7 +122,7 @@ class PathControllerSearchTest extends FixturesWebTestCase
         $client->request("GET", "/path/search");
 
         $button = $client->getCrawler()->selectButton("path_search[submit]");
-        $form = $button->form(["path_search[seats]" => 5], 'POST');
+        $form = $button->form(["path_search[leftSeats]" => 5], 'POST');
 
         $client->submit($form);
 
