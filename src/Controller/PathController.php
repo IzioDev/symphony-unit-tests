@@ -42,7 +42,7 @@ class PathController extends AbstractController {
 
             $user = $this->getUser();
             $path->setDriver($user);
-            $path->setLeftSeats($path>getSeats());
+            $path->setLeftSeats($path->getSeats());
 
             $entityManager->persist($path);
             $entityManager->flush();
@@ -66,9 +66,12 @@ class PathController extends AbstractController {
 
         $path = new Path();
         $path->setStartTime(new \DateTime());
-        $path->setLeftSeats(1);
         $form = $this->createForm(PathSearchType::class, $path);
         $form->handleRequest($request);
+
+        if ($path->getLeftSeats() === null) {
+            $path->setLeftSeats(1);
+        }
 
         $formBook = $this->createForm(PathBookType::class, null, []);
         
