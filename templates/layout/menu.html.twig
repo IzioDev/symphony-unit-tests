@@ -9,7 +9,8 @@
     {% set routeName = app.request.attributes.get('_route') %}
     {% set routeInHome = ['home'] %}
     {% set routeInLocation = ['new_location'] %}
-    {% set routeInPath = ['new_path', 'search_path'] %}
+    {% set routeInPath = ['new_path'] %}
+    {% set routeInSearch = ['search_path'] %}
     {% set routeInSecurity = ['app_login', 'app_register'] %}
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -18,10 +19,10 @@
                 <a class="nav-link" href="{{ path('home') }}">Accueil</a>
             </li>
             <li class="nav-item {{ routeName in routeInPath ? 'active' : '' }}">
-                <a class="nav-link" href="#">Trajet</a>
+                <a class="nav-link" href="{{ path('new_path') }}">Créer un trajet</a>
             </li>
             <li class="nav-item {{ routeName in routeInLocation ? 'active' : '' }}">
-                <a class="nav-link" href="#">Lieu</a>
+                <a class="nav-link" href="{{ path("new_location") }}">Ajouter un lieu</a>
             </li>
 
             {% if app.user %}
@@ -29,6 +30,10 @@
                     <a class="nav-link" href="{{ path('account') }}">Mon compte</a>
                 </li>
             {% endif %}
+
+            <li class="nav-item {{ routeName in routeInSearch ? 'active' : '' }}">
+                <a class="nav-link" href="{{ path('search_path') }}">Rechercher un trajet</a>
+            </li>
             {#<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown

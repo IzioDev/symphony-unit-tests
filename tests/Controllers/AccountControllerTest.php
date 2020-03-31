@@ -44,16 +44,49 @@ class AccountControllerTest extends FixturesWebTestCase
         $em->flush();
     }
 
-//    public function testUserShouldNoSeePathInAccountIfNoBookedPath()
-//    {
-//        $this->setUpLyonAnnecyPath();
-//
-//        $user = $this->createUserClient();
-//
-//    }
-//
-//    public function testUserShouldSeeBookedPath()
-//    {
-//
-//    }
+    public function testUserShouldNoSeePathInAccountIfNoBookedPath()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $user = $this->createUserClient();
+        $user->request("GET", "/account");
+
+        $this->assertSelectorNotExists(".account-owned-paths-item");
+        $this->assertSelectorNotExists(".account-participated-path-item");
+    }
+
+    public function testAdminShouldSeeOwnedPath()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $admin = $this->createAdminClient();
+        $admin->request("GET", "/account");
+
+        $this->assertSelectorExists(".account-owned-paths-item");
+        $this->assertSelectorExists("a[href='/path/1/show']");
+        $this->assertSelectorNotExists(".account-participated-path-item");
+    }
+
+    public function testUserShouldSeeParticipatedPath()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $em = $this->em;
+        $pathRespository = $em->getRepository(Path::class);
+        $userRepository = $em->getRepository(User::class);
+
+        $path = $pathRespository->findOneBy(['id' => 1]);
+        $user = $userRepository->findOneBy(['nickName' => 'user']);
+
+        $path->addPassenger($user);
+        $em->persist($path);
+        $em->flush();
+
+        $userClient = $this->createUserClient();
+        $userClient->request("GET", "/account");
+
+        $this->assertSelectorNotExists(".account-owned-paths-item");
+        $this->assertSelectorExists(".account-participated-path-item");
+        $this->assertSelectorExists("a[href='/path/1/show']");
+    }
 }
