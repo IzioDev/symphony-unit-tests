@@ -138,10 +138,12 @@ class PathController extends AbstractController {
         
         if ($user->getId() == $path->getDriver()->getId()) {
             $em->remove($path);
-        } else {
+        } else if ($path->getPassengers()->contains($user)) {
             $path->removePassenger($user);
             $path->setLeftSeats($path->getLeftSeats() + 1);
             $em->persist($path);
+        } else {
+            throw $this->createAccessDeniedException();
         }
         
         $em->flush();

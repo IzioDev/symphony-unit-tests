@@ -98,6 +98,7 @@ class AccountControllerTest extends FixturesWebTestCase
         $admin = $this->createAdminClient();
         $admin->request("GET", "/account");
 
+        $this->assertSelectorExists("a[href='/path/1/cancel']");
     }
 
     public function testUserShouldBeAbleToHaveALinkToCancelHisParticipatedPath()
