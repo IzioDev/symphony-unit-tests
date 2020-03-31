@@ -90,4 +90,34 @@ class AccountControllerTest extends FixturesWebTestCase
         $this->assertSelectorExists(".account-participated-path-item");
         $this->assertSelectorExists("a[href='/path/1/show']");
     }
+
+    public function testDriverShouldBeAbleToHaveALinkToCancelHisPath()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $admin = $this->createAdminClient();
+        $admin->request("GET", "/account");
+
+    }
+
+    public function testUserShouldBeAbleToHaveALinkToCancelHisParticipatedPath()
+    {
+        $this->setUpLyonAnnecyPath();
+
+        $em = $this->em;
+        $pathRespository = $em->getRepository(Path::class);
+        $userRepository = $em->getRepository(User::class);
+
+        $path = $pathRespository->findOneBy(['id' => 1]);
+        $user = $userRepository->findOneBy(['nickName' => 'user']);
+
+        $path->addPassenger($user);
+        $em->persist($path);
+        $em->flush();
+
+        $userClient = $this->createUserClient();
+        $userClient->request("GET", "/account");
+
+        $this->assertSelectorExists("a[href='/path/1/cancel']");
+    }
 }
