@@ -6,7 +6,7 @@ use App\Entity\Location;
 use App\Tests\FixturesWebTestCase;
 use DateTime;
 
-class PathControllerTest extends FixturesWebTestCase
+class PathControllerCreationTest extends FixturesWebTestCase
 {
     public function testPathCreationShouldRedirectToLoginIfUserNotLoggedIn()
     {
