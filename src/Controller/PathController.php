@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\PathType;
 use App\Form\PathSearchType;
 use App\Repository\LocationRepository;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -58,6 +59,7 @@ class PathController extends AbstractController
      * @Route("/path/search", name="search_path")
      * @param Request $request
      * @return RedirectResponse|Response
+     * @throws Exception
      */
     public function search(Request $request)
     {
