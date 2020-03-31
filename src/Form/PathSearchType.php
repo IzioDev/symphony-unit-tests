@@ -16,7 +16,7 @@ class PathSearchType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('seats', null, [
+                ->add('leftSeats', null, [
                     "label" => "Nombre de place",
                     "required" => false,
                     "attr" => ["min" => 1]

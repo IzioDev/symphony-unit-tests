@@ -34,9 +34,9 @@ class PathRepository extends ServiceEntityRepository {
             $query->setParameter(':user', $user);
         }
 
-        $query->andWhere('p.seats >= :seats');
-        $query->setParameter(':seats', $path->getSeats());
-        $query->andWhere('p.seats > 0');
+        $query->andWhere('p.leftSeats >= :leftSeats');
+        $query->setParameter(':leftSeats', $path->getLeftSeats());        
+        $query->andWhere('p.leftSeats > 0');
         
         $query->andWhere('p.startTime >= :startTime');
         $query->setParameter(':startTime', $path->getStartTime());

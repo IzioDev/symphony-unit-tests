@@ -12,7 +12,7 @@
         <div class="form-container">
             <h1> Recherche de trajets </h1>
             {{ form_start(form) }}
-            {{ form_row(form.seats) }}
+            {{ form_row(form.leftSeats) }}
             {{ form_row(form.startTime) }}
             {{ form_row(form.startLocation) }}
             {{ form_row(form.endLocation) }}
@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     {% for path in paths %}
-                        <tr clas="path-item">
+                        <tr class="path-item">
                             <td>
                                 {{ path.startLocation.name }}
                             </td>
@@ -59,9 +59,11 @@
                             </td>
                             <td>
                                 {% if app.user %}
-                                    <a href="{{ path('book_path', {"id": path.id}) }}" class="btn btn-sm btn-warning">
-                                        Réserver maintenant
-                                    </a>
+                                    {% set formBook = formBookObject.createView %}
+                                    {{ form_start(formBook, {'action': path('book_path', {"id": path.id}) }) }}
+                                    {{ form_widget(formBook.numberPassenger) }}
+                                    {{ form_widget(formBook.submit) }}
+                                    {{ form_end(formBook) }}
                                 {% endif %}
                                 &nbsp;
                                 <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-primary">
@@ -70,10 +72,10 @@
                             </td>
                         </tr>
                     {% else %}
-                    <tr class="flash-danger">
-                        <td colspan="5">Aucun trajet ne correspond à votre recherche.</td>
-                    </tr>
-                {% endfor %}
+                        <tr class="flash-danger">
+                            <td colspan="5">Aucun trajet ne correspond à votre recherche.</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

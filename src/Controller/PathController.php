@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Form\PathBookType;
 
 class PathController extends AbstractController {
 
@@ -41,6 +42,7 @@ class PathController extends AbstractController {
 
             $user = $this->getUser();
             $path->setDriver($user);
+            $path->setLeftSeats($path>getSeats());
 
             $entityManager->persist($path);
             $entityManager->flush();
@@ -64,14 +66,17 @@ class PathController extends AbstractController {
 
         $path = new Path();
         $path->setStartTime(new \DateTime());
-        $path->setSeats(1);
+        $path->setLeftSeats(1);
         $form = $this->createForm(PathSearchType::class, $path);
         $form->handleRequest($request);
 
+        $formBook = $this->createForm(PathBookType::class, null, []);
+        
         $paths = $em->getRepository(Path::class)->findForSearch($path);
 
         return $this->render('path/search.html.twig', [
                     'form' => $form->createView(),
+                    'formBookObject' => $formBook,
                     'paths' => $paths
         ]);
     }
@@ -88,6 +93,9 @@ class PathController extends AbstractController {
 
         $user = $em->getRepository(User::class)->find($this->getUser()->getId());
 
+        $numberPassager = $request->request->get('path_book')['numberPassenger'];
+
+        $path->setLeftSeats($path->getLeftSeats() - $numberPassager);
         $path->addPassenger($user);
 
         $em->persist($path);

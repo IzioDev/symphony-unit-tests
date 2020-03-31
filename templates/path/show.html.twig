@@ -11,7 +11,8 @@
         <div class='show-path-container'>
             <h2>Détail du trajet {{ path.startLocation.name }} vers {{ path.endLocation.name }}</h2>
 
-            Nombre de place: {{ path.seats }} <br/>
+            Nombre de places: {{ path.seats }} <br/>
+            Nombre de place(s) restante(s): {{ path.leftSeats }} <br/>
             Date: {{ path.startTime | date('d-m-Y') }}<br/>
             Heure: {{ path.startTime | date('H:i:s') }}<br/>
 

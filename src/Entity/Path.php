@@ -57,6 +57,11 @@ class Path
      */
     private $passengers;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $leftSeats;
+
     public function __construct()
     {
         $this->passengers = new ArrayCollection();
@@ -149,6 +154,18 @@ class Path
         if ($this->passengers->contains($passenger)) {
             $this->passengers->removeElement($passenger);
         }
+
+        return $this;
+    }
+
+    public function getLeftSeats(): ?int
+    {
+        return $this->leftSeats;
+    }
+
+    public function setLeftSeats(?int $leftSeats): self
+    {
+        $this->leftSeats = $leftSeats;
 
         return $this;
     }
