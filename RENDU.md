@@ -130,7 +130,10 @@ Nous avons fait beaucoup de test et parfois ils sont redondant à lire, nous vou
 ## Difficultées rencontrées
 
 (TODO) parler du Web Fixtures Test Case (fixture + cleanup + authed clients)
+Nouvelle méthodologie de développement (mdr on l'a pas fait)
+Multiplicité des assertions possibes
 
 ## Perspectives d'amélioration
 
 Ajouter plus de test unitaires sur les controller et les repository.
+Ajouter des tests sur les Services, les attributs de routes.
