@@ -17,6 +17,25 @@ Nous avons choisi d'utiliser une base de donnée MySQL qui tourne dans un contai
 
 - Inscription
 - Connection / Déconnexion
+- Liste des trajets en tant que conducteur
+- Liste des trajets en tant que passager
+
+![Screenshot](public/image/Utilisateur.png)
+
+### Lieu
+- Création
+
+![Screenshot](public/image/Lieu.png)
+
+### Trajet
+- Création d'un trajet
+- Liste des trajets
+- Recherche de trajets (avec filtre)
+- Consulter un trajet
+- Réservation d'un trajet
+- Annulation d'une réservation
+
+![Screenshot](public/image/Trajet.png)
 
 # Les tests
 

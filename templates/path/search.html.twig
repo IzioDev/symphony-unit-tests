@@ -57,15 +57,18 @@
                             <td>
                                 {{ path.seats }}
                             </td>
-                            <td>
+                            <td class="row">
                                 {% if app.user %}
                                     {% set formBook = formBookObject.createView %}
                                     {{ form_start(formBook, {'action': path('book_path', {"id": path.id}) }) }}
-                                    {{ form_widget(formBook.numberPassenger) }}
-                                    {{ form_widget(formBook.submit) }}
+                                    <div class="row">
+                                        {{ form_widget(formBook.numberPassenger) }}
+                                        &nbsp;
+                                        {{ form_widget(formBook.submit) }}
+                                    </div>
                                     {{ form_end(formBook) }}
                                 {% endif %}
-                                &nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="{{ path('show_path', {'id': path.id}) }}" class="btn btn-sm btn-primary">
                                     Détails
                                 </a>

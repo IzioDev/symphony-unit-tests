@@ -26,11 +26,15 @@
                         {% endfor %}
                 </ul>
             {% endif %}
-            
+
             {% if app.user and app.user.id is not same as (path.driver.id) and date() < date(path.startTime) and app.user not in path.passengers %}
                 {{ form_start(form) }}
-                    {{ form_row(form.numberPassenger) }}
+                <div class="row">
+                    {{ form_label(form.numberPassenger) }}
+                    {{ form_widget(form.numberPassenger) }}
+                    &nbsp;
                     {{ form_widget(form.submit) }}
+                </div>
                 {{ form_end(form) }}
             {% endif %}
         </div>
