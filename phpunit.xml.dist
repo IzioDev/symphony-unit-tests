@@ -27,6 +27,7 @@
             <exclude>
                 <directory suffix=".php">src/Migrations</directory>
                 <file>src/Kernel.php</file>
+                <file>src/Security/UserAuthenticator.php</file>
             </exclude>
         </whitelist>
     </filter>

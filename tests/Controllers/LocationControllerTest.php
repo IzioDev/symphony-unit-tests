@@ -37,4 +37,21 @@ class LocationControllerTest extends FixturesWebTestCase
 
         $this->assertNotEmpty($grenobleLocation);
     }
+
+    public function testShouldAddDangerMessageIfFormIsNotValid()
+    {
+        $user = $this->createUserClient();
+        $user->request('GET', '/location/create');
+
+        $button = $user->getCrawler()->selectButton('location_form[submit]');
+        $form = $button->form([
+            'location_form[name]' => "Grenoble",
+            'location_form[lat]' => 'not valid',
+            'location_form[lon]' => 101.5,
+        ], 'POST');
+        // Submit it
+        $user->submit($form, [], []);
+
+        $this->assertSelectorExists(".flash-danger");
+    }
 }

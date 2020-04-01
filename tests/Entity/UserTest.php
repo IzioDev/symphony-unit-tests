@@ -1,15 +1,19 @@
 <?php
 
+use App\Entity\Path;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
     protected $user;
+    protected $path;
 
     protected function setUp() : void
     {
         $this->user = new User();
+
+        $this->path = new Path();
     }
 
     public function testShouldCreateAnInstanceOfUser()
@@ -50,6 +54,45 @@ class UserTest extends TestCase
         $this->user->setPassword("password");
 
         $this->assertSame($this->user->getPassword(), "password");
+    }
+
+    public function testShouldAddAnOwnedPath()
+    {
+        $this->user->addOwnedPath($this->path);
+
+        $this->assertContains($this->path, $this->user->getOwnedPaths());
+    }
+
+    public function testShouldRemoveAnOwnedPath()
+    {
+        $this->user->addOwnedPath($this->path);
+
+        $this->user->removeOwnedPath($this->path);
+
+        $this->assertNotContains($this->path, $this->user->getOwnedPaths());
+    }
+
+    public function testShouldAddAParticipatedPath()
+    {
+        $this->user->addParticipatedPath($this->path);
+
+        $this->assertContains($this->path, $this->user->getParticipatedPaths());
+    }
+
+    public function testShouldRemoveAParticipatedPath()
+    {
+        $this->user->addParticipatedPath($this->path);
+
+        $this->user->removeParticipatedPath($this->path);
+
+        $this->assertNotContains($this->path, $this->user->getParticipatedPaths());
+    }
+
+    public function testToStringShouldReturnFirstName()
+    {
+        $this->user->setFirstName("Romain");
+
+        $this->assertSame($this->user->__toString(), "Romain");
     }
 
     public function testIdShouldBeNull()
