@@ -104,6 +104,8 @@ class PathController extends AbstractController {
         $em->persist($path);
         $em->flush();
 
+        $this->addFlash('success', 'Réservation correctement enregistrée.');
+        
         return $this->redirect($this->generateUrl('account'));
     }
 
@@ -138,10 +140,15 @@ class PathController extends AbstractController {
         
         if ($user->getId() == $path->getDriver()->getId()) {
             $em->remove($path);
+            
+            $this->addFlash('success', 'Annulation du trajet correctemet enregistrée.');
+            
         } else if ($path->getPassengers()->contains($user)) {
             $path->removePassenger($user);
             $path->setLeftSeats($path->getLeftSeats() + 1);
             $em->persist($path);
+            
+            $this->addFlash('success', 'Annulation de la réservation correctement enregistrée.');
         } else {
             throw $this->createAccessDeniedException();
         }
