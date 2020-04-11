@@ -130,7 +130,9 @@ Nous avons fait beaucoup de test et parfois ils sont redondant à lire, nous vou
 ## Difficultées rencontrées
 
 (TODO) parler du Web Fixtures Test Case (fixture + cleanup + authed clients)
+
 Nouvelle méthodologie de développement
+
 Multiplicité des assertions possibes
 
 ## Perspectives d'amélioration
